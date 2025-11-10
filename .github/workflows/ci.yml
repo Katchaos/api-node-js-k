@@ -34,4 +34,4 @@ jobs:
         run: npx playwright test tests/empty-array.test.ts
 
       - name: Run remaining tests
-        run: npx playwright test tests/allOtherTests.spec.ts
+        run: npx playwright test tests/allOtherTests.test.ts
