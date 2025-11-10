@@ -15,10 +15,12 @@ test.describe('User management API', () => {
     });
 
     test('find user: should return 404 if user not found', async ({ request }) => {
-        const userId = 9999999;
+        const response = await request.post(`${baseURL}`);
+        const responseBody = await response.json();
+        const userId = responseBody.id;
+        await request.delete(`${baseURL}`+ '/' + userId);
         const getResponse = await request.get(baseURL + '/' + userId);
         expect(getResponse.status()).toBe(404);
-
     });
 
     test('create user: should add a new user', async ({ request }) => {
@@ -45,6 +47,5 @@ test.describe('User management API', () => {
         await request.delete(`${baseURL}`+ '/' + userId);
         const getResponse = await request.get(baseURL + '/' + userId);
         expect(getResponse.status()).toBe(404);
-
     });
 });
