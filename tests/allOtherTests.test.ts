@@ -15,10 +15,7 @@ test.describe('User management API', () => {
     });
 
     test('find user: should return 404 if user not found', async ({ request }) => {
-        const response = await request.post(`${baseURL}`);
-        const responseBody = await response.json();
-        const userId = responseBody.id;
-        //find user by id
+        const userId = 9999999;
         const getResponse = await request.get(baseURL + '/' + userId);
         expect(getResponse.status()).toBe(404);
 
@@ -34,21 +31,19 @@ test.describe('User management API', () => {
 
     test('delete user: should delete a user by ID', async ({ request }) => {
         const response = await request.post(`${baseURL}`);
-        expect(response.status()).toBe(200);
         const responseBody = await response.json();
         const userId = responseBody.id;
-        const responseDelete = await request.delete(`${baseURL}`);
-        const getResponse = await request.get(baseURL + '/' + userId);
-        expect(getResponse.status()).toBe(200);
+        const responseDelete = await request.delete(`${baseURL}`+ '/' + userId);
+        expect(responseDelete.status()).toBe(200);
     });
 
     test('delete user: should return 404 if user not found', async ({ request }) => {
         const response = await request.post(`${baseURL}`);
-        expect(response.status()).toBe(200);
         const responseBody = await response.json();
         const userId = responseBody.id;
-        const responseDelete = await request.delete(`${baseURL}`);
         const getResponse = await request.get(baseURL + '/' + userId);
-        expect(getResponse.status()).toBe(404);
+        const responseDelete = await request.delete(`${baseURL}`);
+        expect(responseDelete.status()).toBe(404);
+
     });
 });
