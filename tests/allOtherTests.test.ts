@@ -41,8 +41,9 @@ test.describe('User management API', () => {
         const response = await request.post(`${baseURL}`);
         const responseBody = await response.json();
         const userId = responseBody.id;
-        const responseDelete = await request.delete(`${baseURL}`);
-        expect(responseDelete.status()).toBe(404);
+        await request.delete(`${baseURL}`+ '/' + userId);
+        const getResponse = await request.get(baseURL + '/' + userId);
+        expect(getResponse.status()).toBe(404);
 
     });
 });
