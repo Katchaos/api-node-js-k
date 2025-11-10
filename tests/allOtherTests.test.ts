@@ -33,7 +33,7 @@ test.describe('User management API', () => {
         const response = await request.post(`${baseURL}`);
         const responseBody = await response.json();
         const userId = responseBody.id;
-        const responseDelete = await request.delete(`${baseURL}`+ '/' + userId);
+        await request.delete(`${baseURL}`+ '/' + userId);
         const deletedUser = await request.get(`${baseURL}`+ '/' + userId);
         expect(deletedUser.status()).toBe(404);
     });
