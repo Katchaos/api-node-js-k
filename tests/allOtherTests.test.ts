@@ -34,7 +34,8 @@ test.describe('User management API', () => {
         const responseBody = await response.json();
         const userId = responseBody.id;
         const responseDelete = await request.delete(`${baseURL}`+ '/' + userId);
-        expect(responseDelete.status()).toBe(200);
+        const deletedUser = await request.get(`${baseURL}`+ '/' + userId);
+        expect(deletedUser.status()).toBe(404);
     });
 
     test('delete user: should return 404 if user not found', async ({ request }) => {
